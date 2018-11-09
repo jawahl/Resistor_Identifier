@@ -32,6 +32,4 @@ module img_proc (
     .axis_o (axis_conv)
   );
 
-  always_comb data_o 
-
 endmodule

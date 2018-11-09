@@ -4,14 +4,14 @@ module syn_fifo #(
   parameter type DATA_TYPE  = logic [7:0],
   parameter int  FIFO_DEPTH = 8
 ) (
-  input  wire clk,
-  input  wire rst,
+  input  wire    clk,
+  input  wire    rst,
 
-  output logic  full,
-  output logic  empty,
+  output logic   full,
+  output logic   empty,
 
-  axis_if.slave axis_i,
-  axis_if.slave axis_o
+  axis_if.slave  axis_i,
+  axis_if.master axis_o
 );
 
   //****************************************
