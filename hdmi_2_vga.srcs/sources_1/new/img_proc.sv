@@ -12,19 +12,26 @@ module img_proc (
   output logic        vsync_o
 );
 
-  /*axis_if #( .DATA_TYPE (pixel_pkg::chunk_t) ) axis_i ();
-  axis_if #( .DATA_TYPE (pixel_pkg::chunk_t) ) axis_o ();
+  axis_if #( .DATA_TYPE (pixel_pkg::chunk_t) ) axis_buf ();
+  axis_if #( .DATA_TYPE (pixel_pkg::chunk_t) ) axis_conv ();
 
-  conv conv_i1 (
-    .clk (clk),
-    .rst (  0),
-  );*/
+  img_buf img_buf_i (
+    .clk    (clk),
+    .en     (1),
+    .pdata  (data_i),
+    .pvld   (vde_i),
+    .hsync  (hsync),
+    .vsync  (vsync),
+    .axis_o (axis_buf)
+  );
 
-  always_ff @ (posedge clk) begin
-    data_o  <= data_i;
-    vde_o   <= vde_i;
-    hsync_o <= hsync_i;
-    vsync_o <= vsync_i;
-  end
+  conv conv_i (
+    .clk    (clk),
+    .rst    (0),
+    .axis_i (axis_buf),
+    .axis_o (axis_conv)
+  );
+
+  always_comb data_o 
 
 endmodule

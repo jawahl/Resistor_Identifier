@@ -79,12 +79,7 @@ module img_buf (
 
   always_ff @ (posedge clk) vld_sft <= (vld_sft << 1) | (rfsm == READ);
 
-  wire [23:0] rdata   [3];    // BRAM read output
-  wire [23:0] rdata_v [3];    // valid only BRAM read output
-
-  assign rdata_v[0] = (vld_rd) ? rdata[0] : 'hx;
-  assign rdata_v[1] = (vld_rd) ? rdata[1] : 'hx;
-  assign rdata_v[2] = (vld_rd) ? rdata[2] : 'hx;
+  wire [23:0] rdata [3];    // BRAM read output
 
   pixel_pkg::pixel_t pix [3];
 
